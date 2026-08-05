@@ -1,0 +1,1355 @@
+# Erica Chen | enVda-Style Single-Page Responsive Portfolio Code (v2)
+
+這是一份為您量身打造的 **enVda 藝文藝廊美學風格——單頁式響應式個人作品集網頁原始碼 (v2 版本)**。
+
+### 🎨 enVda 藝廊美學設計語彙：
+1. **暖沙暖白配色 (Alabaster & Sand)**：底色採用 enVda 標誌性的暖白與輕砂色（`#FAF8F5`、`#FCFBF9`），邊框採用細沙色（`#E5DFD9`），文字採用深炭棕（`#1F1A17`），並點綴雅緻的古銅金（`#B68F5E`），呈現出頂級藝廊、高級珠寶與工藝策展的主題質感。
+2. **經典編輯排版 (Editorial Typography)**：大標題與重點引言採用典雅的 serif 字體（`Playfair Display` / `Georgia`），副標題與細項採用現代、間距開闊的無襯線字體（`Inter`），展現出極致的品牌底蘊。
+3. **藝廊網格系統 (Gallery Grid Systems)**：作品與技術卡片捨棄了 AI 常見的重黑影、大圓角，改用乾淨直角與非常細緻的 1px solid 邊框，完美適配大氣的精美產品與官網截圖。
+4. **優雅微互動 (Elegant Transitions)**：滑鼠懸浮在卡片與按鈕上時，會產生極其輕柔的平滑上浮、線條延展與黃金比例縮放效果，體驗極致奢華流暢。
+
+---
+
+## 🛠️ 如何部署上線？
+1. **儲存檔案**：在您的電腦上新建一個文字檔案，命名為 `index.html`。
+2. **貼上代碼**：複製下方代碼框中的完整內容，並貼入 `index.html` 中儲存。
+3. **上傳展示**：直接將 `index.html` 拖曳至 [Vercel](https://vercel.com) 或上傳到 GitHub Pages，幾秒鐘即可免費發佈您個人的 enVda 風格作品集網頁！
+
+---
+
+## 📋 HTML/CSS/JS 完整原始碼
+
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erica Chen | Visual Brand Storytelling, Web Operations & AI/IoT Portfolio</title>
+    
+    <!-- Google Fonts - Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Elegant Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- enVda Art Gallery Design System --- */
+        :root {
+            --bg-color: #FAF8F5; /* enVda Warm Alabaster */
+            --bg-card: #FCFBF9; /* Warm Off-white */
+            --text-main: #1F1A17; /* Slate Charcoal */
+            --text-muted: #706863; /* Curatorial Warm Gray */
+            --text-light: #A59E99; /* Light Sand Gray */
+            --gold-accent: #B68F5E; /* enVda Refined Gold */
+            --gold-hover: #9E744A; /* Antique Bronze */
+            --border-color: #E5DFD9; /* Fine Sand Border */
+            --border-light: #F0ECE7; /* Super Soft Line */
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.625;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-smooth);
+        }
+
+        /* --- Container Layout --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        section {
+            padding: 10rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* --- enVda Elegant Centered Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(250, 248, 245, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 9999;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 0.8rem;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 500;
+            font-size: 1.5rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            position: relative;
+            padding-bottom: 0.2rem;
+        }
+
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background-color: var(--gold-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.75rem;
+            color: var(--text-main);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+            opacity: 0.75;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold-accent);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--gold-accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section (Editorial Art Catalog Style) --- */
+        .hero {
+            padding-top: 14rem;
+            padding-bottom: 9rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-left {
+            text-align: left;
+        }
+
+        .hero-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--gold-accent);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        .hero-title span {
+            display: block;
+            font-style: italic;
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--gold-accent);
+            margin-top: 0.5rem;
+        }
+
+        .hero-intro {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 0.9rem 2.2rem;
+            border: 1px solid var(--text-main);
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--text-main);
+            border-color: var(--text-main);
+        }
+
+        .btn-secondary {
+            color: var(--gold-accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-main);
+            transform: translateX(5px);
+        }
+
+        /* --- Hero Right Featured Visual (Artistic Placement) --- */
+        .hero-right {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-img-frame {
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            background: var(--bg-card);
+            transition: var(--transition-smooth);
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .hero-img-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(15%);
+            transition: var(--transition-smooth);
+        }
+
+        .hero-img-frame:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-accent);
+        }
+
+        .hero-img-frame:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* --- Section Curatorial Header --- */
+        .section-header {
+            max-width: 800px;
+            margin-bottom: 6rem;
+            border-left: 2px solid var(--gold-accent);
+            padding-left: 2rem;
+        }
+
+        .section-tag {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 0em;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .section-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* --- Curatorial Quotes --- */
+        .quote-block {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2rem;
+            line-height: 1.45;
+            font-style: italic;
+            color: var(--text-main);
+            margin: 5rem 0;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            position: relative;
+        }
+
+        .quote-block::before {
+            content: '“';
+            font-size: 5rem;
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--border-color);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- Editorial Cards Grid (Straight Lines) --- */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .philosophy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 3.5rem 2.5rem;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .philosophy-card:hover {
+            border-color: var(--gold-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(31, 26, 23, 0.03);
+        }
+
+        .ph-number {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--gold-accent);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .ph-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 400;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .ph-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+        /* --- Competencies Minimalist Progress Bar --- */
+        .competency-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .competency-left h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .competency-left p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.65;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+        }
+
+        .skill-item {
+            width: 100%;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .skill-info span:first-child {
+            color: var(--text-main);
+        }
+
+        .skill-info span:last-child {
+            color: var(--gold-accent);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--border-light);
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--text-main);
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .skill-progress.active-gold {
+            background-color: var(--gold-accent);
+        }
+
+        /* --- Tech Specs Grid (Minimal Exhibition Grid) --- */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 3.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .tech-card:hover {
+            border-color: var(--gold-accent);
+            box-shadow: 0 15px 30px rgba(31, 26, 23, 0.03);
+        }
+
+        .tech-icon {
+            font-size: 1.8rem;
+            color: var(--gold-accent);
+            margin-bottom: 1.8rem;
+        }
+
+        .tech-card-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .tech-tag {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: var(--transition-smooth);
+        }
+
+        .tech-card:hover .tech-tag {
+            border-color: var(--gold-accent);
+            color: var(--text-main);
+        }
+
+        .tech-card-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- Selected Portfolio enVda Curation Grid --- */
+        .portfolio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8rem;
+        }
+
+        .portfolio-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .portfolio-item.reversed {
+            direction: rtl;
+        }
+
+        .portfolio-item.reversed .portfolio-content {
+            direction: ltr;
+        }
+
+        .portfolio-visual {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.2rem;
+            transition: var(--transition-smooth);
+            aspect-ratio: 16 / 11;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(10%);
+            transition: var(--transition-smooth);
+        }
+
+        .portfolio-visual .fallback-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            background: #F5F1EB;
+            border: 1px dashed var(--gold-accent);
+            padding: 2rem;
+        }
+
+        .portfolio-visual .fallback-icon i {
+            font-size: 3rem;
+            color: var(--gold-accent);
+            margin-bottom: 1.2rem;
+        }
+
+        .portfolio-visual .fallback-icon h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .portfolio-visual .fallback-icon p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .portfolio-item:hover .portfolio-visual {
+            border-color: var(--gold-accent);
+            transform: translateY(-5px);
+        }
+
+        .portfolio-item:hover .portfolio-visual img {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+
+        .portfolio-content {
+            padding: 1rem 0;
+        }
+
+        .portfolio-category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+
+        .portfolio-item-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.1rem;
+            font-weight: 400;
+            margin-bottom: 1.8rem;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+        }
+
+        .portfolio-item-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .portfolio-stats {
+            display: flex;
+            gap: 3.5rem;
+            margin-bottom: 2.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.8rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-val {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .stat-lbl {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.3rem;
+        }
+
+        /* --- Curatorial Linear Timeline --- */
+        .timeline {
+            position: relative;
+            max-width: 850px;
+            margin: 0 auto;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 100%;
+            background-color: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0.5rem;
+            left: -3rem;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background-color: var(--gold-accent);
+            transform: translateX(-5.5px);
+            border: 2px solid var(--bg-color);
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item:hover::before {
+            transform: translateX(-5.5px) scale(1.6);
+            background-color: var(--text-main);
+        }
+
+        .tl-date {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--gold-accent);
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .tl-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .tl-title span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-left: 1.2rem;
+            border-left: 1px solid var(--border-color);
+            padding-left: 1.2rem;
+            display: inline-block;
+        }
+
+        .tl-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- Footer (Dark Gallery Aesthetic) --- */
+        footer {
+            background-color: #1A1513; /* Elegant Dark Warm Charcoal */
+            color: #FAF8F5;
+            padding: 8rem 0 4rem 0;
+            border-top: none;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 5rem;
+            margin-bottom: 5rem;
+        }
+
+        .footer-left h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-left p {
+            color: #A59E99;
+            font-size: 1.05rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            max-width: 550px;
+            line-height: 1.7;
+        }
+
+        .footer-contact-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .contact-card {
+            border: 1px solid rgba(229,223,217,0.12);
+            padding: 2rem;
+            transition: var(--transition-smooth);
+        }
+
+        .contact-card:hover {
+            border-color: var(--gold-accent);
+            background-color: rgba(229,223,217,0.02);
+            transform: translateY(-3px);
+        }
+
+        .cc-icon {
+            font-size: 1.2rem;
+            color: var(--gold-accent);
+            margin-bottom: 1rem;
+        }
+
+        .cc-label {
+            font-size: 0.72rem;
+            color: #A59E99;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.4rem;
+        }
+
+        .cc-value {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #FAF8F5;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            list-style: none;
+            align-items: flex-end;
+        }
+
+        .footer-nav a {
+            font-size: 0.75rem;
+            color: #A59E99;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .footer-nav a:hover {
+            color: var(--gold-accent);
+        }
+
+        .copyright {
+            color: #706863;
+            font-size: 0.75rem;
+            text-align: right;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(229,223,217,0.12);
+            padding-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: #A59E99;
+            letter-spacing: 0.15em;
+        }
+
+        .footer-brand span {
+            color: var(--gold-accent);
+        }
+
+        /* --- Responsive Queries --- */
+        @media (max-width: 991px) {
+            html {
+                font-size: 15px;
+            }
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 15rem;
+                gap: 4rem;
+            }
+            .hero-right {
+                order: -1;
+            }
+            .competency-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-item, .portfolio-item.reversed {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                direction: ltr;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .footer-right {
+                align-items: flex-start;
+                gap: 3rem;
+            }
+            .footer-nav {
+                align-items: flex-start;
+            }
+            .copyright {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 576px) {
+            html {
+                font-size: 14px;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+            }
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+            .footer-contact-info {
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.8rem;
+                align-items: flex-start;
+            }
+            .nav-links {
+                display: none; /* Can be handled via burger menu if needed */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Erica Chen</a>
+            <ul class="nav-links">
+                <li><a href="#about">治事哲學</a></li>
+                <li><a href="#competency">能力維度</a></li>
+                <li><a href="#tech">技術規格</a></li>
+                <li><a href="#portfolio">策展專案</a></li>
+                <li><a href="#experience">編年經歷</a></li>
+                <li><a href="#contact">取得聯繫</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-left">
+                <span class="hero-label">Curator • Visual & Operations Director</span>
+                <h1 class="hero-title">
+                    以極簡美學與智慧營運<span>創造純粹的直覺體驗。</span>
+                </h1>
+                <p class="hero-intro">
+                    我是 Erica Chen。結合美國西雅圖藝術學院的視覺設計底蘊，與網際網路創始先驅時代起的高效全端營運實踐。我將高精準度的工程邏輯、極簡藝術的視覺敘事，與大局觀的價值思維完美融合，為高端品牌打造富含文化溫度且運轉流暢的數位生態。
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#portfolio" class="btn-primary">瀏覽策展作品 <i class="fa-solid fa-arrow-right-long"></i></a>
+                    <a href="#contact" class="btn-secondary">與我聯繫 <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-img-frame">
+                    <!-- 使用 placeholder 呈現優雅的灰度靜物/作品感圖片，完美融入 enVda Style -->
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=600" alt="Erica Chen Brand Aesthetics">
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Philosophy -->
+        <section id="about">
+            <div class="section-header">
+                <span class="section-tag">Philosophy</span>
+                <h2 class="section-title">將「價值投資」的嚴謹大局觀，應用於每一次設計與網站營運中。</h2>
+                <p class="section-desc">摒棄無效的贅飾與繁瑣，在動態技術更迭中保持深度的戰略耐心，追求極致效能與風險控制的完美契合。</p>
+            </div>
+
+            <div class="quote-block">
+                「無論是編寫社群平台代碼，還是協調跨國使團的複雜後勤，最寶貴且不可妥協的財富，始終是誠信與人際間的溫暖聯結。」
+            </div>
+
+            <div class="philosophy-grid">
+                <!-- Card 1 -->
+                <div class="philosophy-card">
+                    <div>
+                        <span class="ph-number">01 / VALUE THINKING</span>
+                        <h3 class="ph-title">價值思維</h3>
+                    </div>
+                    <p class="ph-text">
+                        深受美股價值投資之分析方法啟發，我將極強的風險控制與資產挖掘原則融入行政與網站營運。不盲從短期行銷流行，專注於發掘品牌尚未被充分展現的長遠長尾價值，以此優化整體架構。
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="philosophy-card">
+                    <div>
+                        <span class="ph-number">02 / STRATEGIC PATIENCE</span>
+                        <h3 class="ph-title">戰略耐心</h3>
+                    </div>
+                    <p class="ph-text">
+                        在高強度、高壓力的外交及科技專案中，保持絕對的冷靜與數據敏感度。透過精確分析 GA4 數據、SEO 與客戶 CRM 漏斗，在最佳時機採取行動，推動高效能成果的落地。
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="philosophy-card">
+                    <div>
+                        <span class="ph-number">03 / CULTURAL BRIDGE</span>
+                        <h3 class="ph-title">外交與信任</h3>
+                    </div>
+                    <p class="ph-text">
+                        身為虔誠的實踐穆斯林，行事嚴格遵循 **Birr & Taqwa**（虔誠與敬畏）的核心誠信與道德準則。結合 INFJ 內向領袖特質，在台灣本土智慧與國際跨文化對接中，搭建最牢固且備受尊重的互信橋樑。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competencies -->
+        <section id="competency">
+            <div class="competency-container">
+                <div class="competency-left">
+                    <span class="section-tag">Capabilities</span>
+                    <h3>雙向溝通的 T 型專業維度</h3>
+                    <p>
+                        具備高階行政治理的嚴密性、數位行銷的精準度，以及西雅圖藝術學院（曾獲 Bill Cumming 榮譽獎與 Dean's List）所奠定的視覺傳達美學。我能無縫橋接研發、技術團隊與高階決策階層，將戰略藍圖轉化為極具質感的數位資產。
+                    </p>
+                </div>
+                <div class="competency-right">
+                    <div class="skills-list">
+                        <!-- Skill 1 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>跨文化聯絡與協調 Cross-Cultural Liaison</span>
+                                <span>98%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress active-gold" style="width: 98%;"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 2 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>行政治理與流程優化 Administrative Governance</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 3 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>數位行銷與指標分析 Digital Marketing & Analysis</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <!-- Skill 4 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>創意品牌傳達 & UI/UX 設計 Premium Creative UI/UX</span>
+                                <span>Premium</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress active-gold" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Specs -->
+        <section id="tech">
+            <div class="section-header">
+                <span class="section-tag">Specifications</span>
+                <h2 class="section-title">數位與 AI 前沿技術規格</h2>
+                <p class="section-desc">結合前沿人工智慧模型應用與物聯網原型開發，用科技賦能傳統業務，實踐敏捷工作流。</p>
+            </div>
+
+            <div class="tech-grid">
+                <!-- Card 1 -->
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3 class="tech-card-title">主流 LLM 智慧靈活應用</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Gemini</span>
+                        <span class="tech-tag">ChatGPT</span>
+                        <span class="tech-tag">Claude</span>
+                        <span class="tech-tag">Grok</span>
+                        <span class="tech-tag">Copilot</span>
+                        <span class="tech-tag">notebookLLM</span>
+                    </div>
+                    <p class="tech-card-desc">
+                        靈活運用生成式 AI（GenAI）進行多維數據深度挖掘、高難度中英雙語外交文書精緻撰寫、產業趨勢研究分析與日常工作流自動化。將 AI 作為第二智慧腦，深度提升行政營運效能與決策輔助。
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <h3 class="tech-card-title">AIoT 軟硬體整合實作</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">ESP32</span>
+                        <span class="tech-tag">Arduino UNO</span>
+                        <span class="tech-tag">Raspberry Pi</span>
+                    </div>
+                    <p class="tech-card-desc">
+                        具備物聯網（IoT）微控制器的軟硬體整合基礎。熟悉感測器數據採集與校準、微控制器通信、無線通訊協定配置，能橋接硬體實體層、本地網路層與雲端 API 進行系統整合測試。
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3 class="tech-card-title">敏捷全端原型與託管</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">HTML5 / CSS3</span>
+                        <span class="tech-tag">Codex</span>
+                        <span class="tech-tag">MicroPython</span>
+                        <span class="tech-tag">Firebase DB</span>
+                        <span class="tech-tag">Thonny</span>
+                    </div>
+                    <p class="tech-card-desc">
+                        擁有獨立編寫概念驗證（PoC）原型的實作能力。擅長利用 MicroPython 連接硬體，並結合 Firebase 即時資料庫（Realtime DB）與雲端託管（Hosting），快速部署具有前後端通訊功能的完整交互式網頁。
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3 class="tech-card-title">數位內容與視覺生成</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Figma</span>
+                        <span class="tech-tag">Stable Diffusion</span>
+                        <span class="tech-tag">Mid Journey</span>
+                        <span class="tech-tag">Adobe CC</span>
+                        <span class="tech-tag">Canva</span>
+                    </div>
+                    <p class="tech-card-desc">
+                        熟練操控高精度高保真 UI/UX 設計與版面動態佈局規劃。精通商業平面視覺、數位品牌敘事與多媒體合成；靈活調用 Mid Journey 及 Stable Diffusion 實現頂級概念圖渲染，並完美適配前端開發架構（HTML/CSS/React）。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Portfolio -->
+        <section id="portfolio">
+            <div class="section-header">
+                <span class="section-tag">Exhibition Cases</span>
+                <h2 class="section-title">精選設計與網站營運策展案例</h2>
+                <p class="section-desc">以策展人的視角對待每一個商業項目，將設計之美學、故事之溫度與智慧營運之實效完美熔煉。</p>
+            </div>
+
+            <div class="portfolio-list">
+                <!-- Project 1 -->
+                <div class="portfolio-item">
+                    <div class="portfolio-visual">
+                        <div class="fallback-icon">
+                            <i class="fa-solid fa-globe"></i>
+                            <h4>enVda.com 官網綜合營運</h4>
+                            <p>高端藝術與美學體驗平台</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">Web Operations & Curatorial Strategy</span>
+                        <h3 class="portfolio-item-title">enVda 藝文生活美學平台運營</h3>
+                        <p class="portfolio-item-desc">
+                            全權主導 enVda.com 平台的品牌視覺建構、UI/UX 設計與社群營運策略。精心策劃 VGallery 線上虛擬藝術展覽，涵蓋知名藝術家 Heidi Yip、珠寶設計大師 Cindy Chao 等高端高級珠寶與畫作主題策展。完美打通藝術體驗（Experience，如林山竹工坊、心流舞療等預約）與優雅禮品電商零售（Shop，如千秋陶坊定白銀釉杯等精選生活美學器物），縮短整體營運流程耗時達 40%，有效建構精準客群粘性。
+                        </p>
+                        <div class="portfolio-stats">
+                            <div class="stat-item">
+                                <span class="stat-val">40%</span>
+                                <span class="stat-lbl">營運效率提升</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-val">Bilingual</span>
+                                <span class="stat-lbl">雙語完整營運</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="portfolio-item reversed">
+                    <div class="portfolio-visual">
+                        <div class="fallback-icon">
+                            <i class="fa-solid fa-wine-glass"></i>
+                            <h4>petit VIVANT - LYRA 視覺傳達</h4>
+                            <p>半導體淨化技術應用生活美學</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-category">Global Brand Identity & Exhibition Logistics</span>
+                        <h3 class="portfolio-item-title">VIVANTWINE 全球品牌視覺標準與後勤</h3>
+                        <p class="portfolio-item-desc">
+                            負責高科技半導體相鄰淨化技術企業 VIVANTWINE 旗艦產品 petit VIVANT - LYRA 恆溫冰酒桶的全球視覺傳達設計標準與多語系型錄。將產品「無冰無水、磁吸美學、完美適配 750ml 瓶身」之技術核心，轉化為跨國實體與數位展覽之全套極簡視覺資產。擔任大型展會的全球聯絡人與後勤總協調，成功統籌、組裝與營運大型發光「神鹿」裝置藝術，實現全球電商與實體推廣業績增長 30%。
+                        </p>
+                        <div class="portfolio-stats">
+                            <div class="stat-item">
+                                <span class="stat-val">30%</span>
+                                <span class="stat-lbl">業績顯著提升</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-val">Zero-Failure</span>
+                                <span class="stat-lbl">國際展覽物流對接</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Chronology -->
+        <section id="experience">
+            <div class="section-header">
+                <span class="section-tag">Chronology</span>
+                <h2 class="section-title">編年史：網際網路與治理底蘊</h2>
+                <p class="section-desc">二十餘年職涯沉澱，從數位技術前沿開拓，到高階治理與外交級協調。</p>
+            </div>
+
+            <div class="timeline">
+                <!-- Timeline 1 -->
+                <div class="timeline-item">
+                    <span class="tl-date">2021 — 2025</span>
+                    <h3 class="tl-title">創意與視覺設計總監 / 智慧營運負責人<span>enVda & VIVANTWINE</span></h3>
+                    <p class="tl-desc">
+                        統合高級珠寶、文化藝術等高端生活美學平台的數位品牌敘事、UI/UX 設計及中英文雙語內容營運。在跨國科技、美學產品的整合營運中，將專案研發、倉儲物料對接以及全球展會後勤做最精確的管理。
+                    </p>
+                </div>
+                <!-- Timeline 2 -->
+                <div class="timeline-item">
+                    <span class="tl-date">2020 — 2021</span>
+                    <h3 class="tl-title">業務開發副理<span>銳俛科技 (RITI Technology, Inc.)</span></h3>
+                    <p class="tl-desc">
+                        負責 V2X 智慧交通開放平台之跨境商務媒合，擔任國際開發團隊的關鍵聯絡人。主導並編寫政府重大科研補助計畫案與市場開發戰略，以 100% 的成功率順利通過審查與撥款。
+                    </p>
+                </div>
+                <!-- Timeline 3 -->
+                <div class="timeline-item">
+                    <span class="tl-date">2016 — 2017</span>
+                    <h3 class="tl-title">資深專案經理<span>宏碁子公司 Xplova (Acer Subsidiary)</span></h3>
+                    <p class="tl-desc">
+                        管理跨部門運營日程及軟硬體整合測試，成功整合 IoT 穿戴式與車載產品之 Web-to-App-to-Device 物聯網服務生態系統，確保全球市場規模化擴張階段的營運與技術和諧。
+                    </p>
+                </div>
+                <!-- Timeline 4 -->
+                <div class="timeline-item">
+                    <span class="tl-date">1996 — 2000</span>
+                    <h3 class="tl-title">創始團隊網頁製作人 / 先驅設計師<span>新浪網 SINA (華淵時期)</span></h3>
+                    <p class="tl-desc">
+                        身為大中華區網路時代的第一代拓荒先驅，從資深視覺設計師一路晉升至高階網頁製作人，主導統一企業等數百萬廣告規模的大型廣告與數位行銷專案，為新浪網早期開拓立下重要戰功。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- End container -->
+
+    <!-- Footer Area -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-left">
+                    <h2>與我攜手，將直覺與精緻付諸實踐</h2>
+                    <p>
+                        無論是設計最頂級的藝文網站 UI 介面、編寫敏捷原型、串聯前沿 AI 自動化流程，還是打理外交使團高度複雜的外交行政與後勤協調——最寶貴的資產始終是「誠信」與「對卓越品質的戰略耐心」。
+                    </p>
+                    <div class="footer-contact-info">
+                        <div class="contact-card">
+                            <div class="cc-icon"><i class="fa-regular fa-envelope"></i></div>
+                            <div class="cc-label">Email Address</div>
+                            <div class="cc-value">imerica@gmail.com</div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="cc-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                            <div class="cc-label">Phone Contact</div>
+                            <div class="cc-value">+882 906969457</div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="cc-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="cc-label">Location Base</div>
+                            <div class="cc-value">Taipei, Taiwan (台北, 台灣)</div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="cc-icon"><i class="fa-solid fa-language"></i></div>
+                            <div class="cc-label">Language Stack</div>
+                            <div class="cc-value">Bilingual (中 / 英文 100%)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <ul class="footer-nav">
+                        <li><a href="#about">治事哲學</a></li>
+                        <li><a href="#competency">能力維度</a></li>
+                        <li><a href="#tech">技術規格</a></li>
+                        <li><a href="#portfolio">策展專案</a></li>
+                        <li><a href="#experience">編年經歷</a></li>
+                    </ul>
+                    <div class="copyright">
+                        &copy; 2026 Erica Chen. All Rights Reserved.<br>
+                        Curated with Excellence & Honesty.
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-brand">ERICA <span>CHEN</span></div>
+                <div style="font-size: 0.72rem; color: #706863; letter-spacing: 0.05em;">
+                    Established upon Birr & Taqwa.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+```
